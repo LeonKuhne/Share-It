@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Leee's Vending | Who?</title>
+    <meta name="description" content="Leee's Vending">
+    <meta name="viewport" content="width=device-width">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script lang="vue">
+    document.addEventListener('DOMContentLoaded', ()=>{
+        var people = new Vue({
+            el: '#people',
+            data: {
+                people: ["Leee", "Sydknee", "Ptr", "Bren(x2)"]
+            }
+        })
+    })
+    </script>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <choices id="people">
+        <a href="./what.html" class="choice" v-for="name in people">{{name}}</a>
+    </choices>
+</body>
+</html>

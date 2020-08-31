@@ -1,0 +1,47 @@
+html {
+    /* look */
+    background-color: black;
+    color: white;
+}
+
+choices {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: auto;
+    height: 100%;
+}
+
+.choice {
+    /* look */
+    background-color: white;
+    color: black;
+    text-align: center;
+    font-size: 3em;
+    font-weight: bold;
+
+    /* shape */
+    border-radius: 2em;
+
+    /* alignment */
+    flex: 1;
+    min-width: 30%;
+    padding: 1em;
+    margin: 20px;
+}
+
+.choice:hover {
+    background-color: goldenrod;
+    cursor: pointer;
+}
+
+.choice:active {
+    background-color: darkgreen;
+}
+
+price {
+    color: green;
+    padding: 20px;
+    font-weight: 100;
+}
