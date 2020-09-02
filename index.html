@@ -34,9 +34,6 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-	TODO:
-	* Have this exec a js (vue) function that saves the persons name in cache.
-	* If the name in in cache, then redirect on load.
     <choices id="people">
 	    <choice v-on:click="login(name)" v-for="name in people">{{name}}</choice>
     </choices>
