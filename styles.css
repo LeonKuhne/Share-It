@@ -22,7 +22,7 @@ choice {
     font-weight: bold;
 
     /* shape */
-    border-radius: 2em;
+    border-radius: 1em;
 
     /* alignment */
     flex: 1;
