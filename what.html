@@ -8,11 +8,36 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
     <script lang="vue">
     document.addEventListener('DOMContentLoaded', ()=>{
+	let API = "https://s0gibsi9ni.execute-api.us-east-2.amazonaws.com/Beta"
+
         var items = new Vue({
             el: '#items',
             data: {
-                items: [["coke", 2], ["eggs", 0.5], ["beer", 1.5], ["water", 0]]
-            }
+		items: {}
+            },
+	    mounted() {
+	    	fetch(API)
+		.then(res => res.json())
+		.then(data => {
+			this.items = data.body
+		})
+	    },
+	    methods: {
+		purchase: (item) => {
+		    user = localStorage.getItem("lv-user")
+		    body = {
+		    	user: user,
+			item: item
+		    }
+		    fetch(API, {
+		        method: "post", body: JSON.stringify(body)
+		    })
+		    .then(res => res.json())
+		    .then(data => {
+		    	alert("You (" + user + ") owes $" + data.body.owes + ".")
+		    })
+		}
+	    }
         })
     })
     </script>
@@ -21,9 +46,10 @@
 </head>
 <body>
     <choices id="items">
-        <a class="choice" v-for="item in items">
-            {{item[0]}}<price>${{item[1]}}</price>
-        </a>
+        <choice v-for="item in items" v-on:click="purchase(item.name)">
+		{{item.name}}<price>${{item.price}}</price>
+		<owner>{{item.owner}}</owner>
+        </choice>
     </choices>
 </body>
 </html>

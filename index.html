@@ -11,8 +11,22 @@
         var people = new Vue({
             el: '#people',
             data: {
+		remember: false,
                 people: ["Leee", "Syd", "Peter", "Brenden"]
-            }
+            },
+	    created() {
+                // automatically redirect
+	    	name = localStorage.getItem("lv-user")
+		if (name !== 'null' && this.remember) {
+		    window.location.href = "./what.html"
+		}
+	    },
+	    methods: {
+		login: (name) => {
+		    localStorage.setItem("lv-user", name)
+		    window.location.href = "./what.html"
+		}
+	    }
         })
     })
     </script>
@@ -20,8 +34,11 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+	TODO:
+	* Have this exec a js (vue) function that saves the persons name in cache.
+	* If the name in in cache, then redirect on load.
     <choices id="people">
-        <a href="./what.html" class="choice" v-for="name in people">{{name}}</a>
+	    <choice v-on:click="login(name)" v-for="name in people">{{name}}</choice>
     </choices>
 </body>
 </html>

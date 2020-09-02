@@ -13,7 +13,7 @@ choices {
     height: 100%;
 }
 
-.choice {
+choice {
     /* look */
     background-color: white;
     color: black;
@@ -31,17 +31,24 @@ choices {
     margin: 20px;
 }
 
-.choice:hover {
+choice:hover {
     background-color: goldenrod;
     cursor: pointer;
 }
 
-.choice:active {
+choice:active {
     background-color: darkgreen;
 }
 
 price {
     color: green;
     padding: 20px;
+    font-weight: 600;
+}
+
+owner {
+    color: lightblue;
     font-weight: 100;
+    float: right;
+    margin-right: 2em;
 }
