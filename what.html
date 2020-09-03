@@ -47,7 +47,8 @@
 <body>
     <choices id="items">
         <choice v-for="item in items" v-on:click="purchase(item.name)">
-		{{item.name}}<price>${{item.price}}</price>
+		<div class="title">{{item.name}}</div>
+		<price>${{item.price}}</price>
 		<owner>{{item.owner}}</owner>
         </choice>
     </choices>

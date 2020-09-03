@@ -8,7 +8,7 @@ choices {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: auto;
     height: 100%;
 }
@@ -23,6 +23,7 @@ choice {
 
     /* shape */
     border-radius: 1em;
+    width: 100%;
 
     /* alignment */
     flex: 1;
@@ -40,15 +41,18 @@ choice:active {
     background-color: darkgreen;
 }
 
+choice > .title {
+    padding-bottom: 1em;
+}
+
 price {
     color: green;
-    padding: 20px;
     font-weight: 600;
+    float: left;
 }
 
 owner {
     color: lightblue;
     font-weight: 100;
     float: right;
-    margin-right: 2em;
 }
