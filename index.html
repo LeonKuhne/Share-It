@@ -1,41 +1,52 @@
 <!DOCTYPE html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Leee's Vending | Who?</title>
-    <meta name="description" content="Leee's Vending">
-    <meta name="viewport" content="width=device-width">
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
-    <script lang="vue">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Leee's Vending | Who?</title>
+  <meta name="description" content="Leee's Vending">
+  <meta name="viewport" content="width=device-width">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+  <script lang="vue">
     document.addEventListener('DOMContentLoaded', ()=>{
         var people = new Vue({
             el: '#people',
             data: {
-		remember: false,
-                people: ["Leee", "Syd", "Peter", "Brenden"]
-            },
-	    created() {
-                // automatically redirect
-	    	name = localStorage.getItem("lv-user")
-		if (name !== 'null' && this.remember) {
-		    window.location.href = "./what.html"
-		}
-	    },
-	    methods: {
-		login: (name) => {
-		    localStorage.setItem("lv-user", name)
-		    window.location.href = "./what.html"
-		}
-	    }
+            remember: true,
+            people: ["Leee", "Syd", "Peter", "Brenden"]
+        },
+        created() {
+            // update users
+            if (!localStorage.getItem("lv-updated")) {
+              alert(
+                "Updates: \n\
+                It is now a free market; buy and sell from anyone.\n \
+                If someone buys your stuff, it will deduct from what you owe.\n\
+                You will also now stay signed in, click your name to navigate home.\n\
+                Have fun!\
+              ")
+              localStorage.setItem("lv-updated", true)
+            }
+            // automatically redirect
+            name = localStorage.getItem("lv-user")
+            if (name !== 'null' && this.remember) {
+                window.location.href = "./what.html"
+            }
+        },
+        methods: {
+          login: (name) => {
+            localStorage.setItem("lv-user", name)
+            window.location.href = "./what.html"
+          }
+        }
         })
     })
-    </script>
+  </script>
 
-    <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <choices id="people">
-	    <choice v-on:click="login(name)" v-for="name in people">{{name}}</choice>
-    </choices>
+  <choices id="people">
+  <choice v-on:click="login(name)" v-for="name in people">{{name}}</choice>
+  </choices>
 </body>
 </html>

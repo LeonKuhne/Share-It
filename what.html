@@ -16,33 +16,45 @@
 		items: {},
 		user: "unknown"
             },
-	    mounted() {
-		this.user = localStorage.getItem("lv-user")
+  	    mounted() {
+    		this.user = localStorage.getItem("lv-user")
+            if (!this.user) {
+    		  window.location.href = "./index.html"
+            }
 
 	    	fetch(API)
-		.then(res => res.json())
-		.then(data => {
-			this.items = data.body
-		})
-	    },
-	    methods: {
-		purchase: (item) => {
-		    user = localStorage.getItem("lv-user")
-		    body = {
-		    	user: user,
-			item: item
-		    }
-		    fetch(API, {
-		        method: "post", body: JSON.stringify(body)
-		    })
-		    .then(res => res.json())
+	    	.then(res => res.json())
 		    .then(data => {
-		    	console.log(data.body)
-		    	alert("You (" + user + ") owes $" + data.body.owes + ".")
-		    	window.location.href = "./index.html"
-		    })
-		}
-	    }
+		        this.items = data.body
+      		})
+	    },
+        methods: {
+        logout: () => {
+    		this.user = localStorage.removeItem("lv-user")
+    		window.location.href = "./index.html"
+        },
+        purchase: (item) => {
+            user = localStorage.getItem("lv-user")
+            body = {
+                user: user,
+            item: item
+            }
+            fetch(API, {
+                method: "post", body: JSON.stringify(body)
+            })
+            .then(res => res.json())
+            .then(data => {
+                var owner = data.body.owner
+                // check urself
+                if (user === owner) {
+                    // b4 you wreck urself
+                    alert("You owe $" + data.body.owes)
+                } else {
+                    alert(user+" paid "+data.body.owner+", you owe $"+data.body.owes+".")
+                }
+            })
+        }
+        }
         })
     })
     </script>
@@ -51,7 +63,7 @@
 </head>
 <body>
     <div id="items">
-        <h1>{{user}}</h1>
+        <h1 v-on:click="logout()">{{user}}</h1>
 	<choices>
 	    <choice v-for="item in items" v-on:click="purchase(item.name)">
 		<div class="title">{{item.name}}</div>
