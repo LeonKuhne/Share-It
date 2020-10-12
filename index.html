@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Leee's Vending | Who?</title>
-  <meta name="description" content="Leee's Vending">
-  <meta name="viewport" content="width=device-width">
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
-  <script lang="vue">
-    document.addEventListener('DOMContentLoaded', ()=>{
-        var people = new Vue({
-            el: '#people',
-            data: {
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Leee's Vending | Who?</title>
+    <meta name="description" content="Leee's Vending">
+    <meta name="viewport" content="width=device-width">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script lang="vue">
+document.addEventListener('DOMContentLoaded', ()=>{
+    var people = new Vue({
+        el: '#people',
+        data: {
             remember: true,
             people: ["Leee", "Syd", "Peter", "Brenden"]
         },
         created() {
+            // decide weather to save logins
+            var useLogin = localStorage.getItem("lv-remember")
+            if (useLogin != null) {
+    		    this.remember = useLogin !== "false" ? true : false
+            }
+
             // update users
             if (!localStorage.getItem("lv-updated")) {
               alert(
@@ -26,10 +32,13 @@
               ")
               localStorage.setItem("lv-updated", true)
             }
+
             // automatically redirect
-            name = localStorage.getItem("lv-user")
-            if (name !== 'null' && this.remember) {
-                window.location.href = "./what.html"
+            if (this.remember) {
+                console.log(localStorage.getItem("lv-user"))
+                if (localStorage.getItem("lv-user") != null) {
+                    window.location.href = "./what.html"
+                }
             }
         },
         methods: {
@@ -38,15 +47,15 @@
             window.location.href = "./what.html"
           }
         }
-        })
     })
-  </script>
+})
+    </script>
 
-  <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <choices id="people">
-  <choice v-on:click="login(name)" v-for="name in people">{{name}}</choice>
-  </choices>
+    <choices id="people">
+    <choice v-on:click="login(name)" v-for="name in people">{{name}}</choice>
+    </choices>
 </body>
 </html>

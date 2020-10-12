@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Leee's Vending | Remember</title>
+    <meta name="description" content="Leee's Vending">
+    <meta name="viewport" content="width=device-width">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script lang="vue">
+document.addEventListener('DOMContentLoaded', ()=>{
+    var rememberDevice = new Vue({
+        el: '#remember',
+        data: {
+            remember: null,
+        },
+        created() {
+            var useLogin = localStorage.getItem("lv-remember")
+            if (useLogin != null) {
+                // get the login
+    		    this.remember = useLogin !== "false" ? true : false
+                // swap the state
+                this.remember = !this.remember 
+            } else {
+                this.remember = true
+            }
+
+            // update local storage
+            localStorage.setItem("lv-remember", this.remember)
+        }
+    })
+})
+    </script>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>remembering set to:
+        <span id="remember">{{ remember }}</span>
+    </h2>
+    <h2>reload to toggle (default: true)</h2>
+</body>
+</html>

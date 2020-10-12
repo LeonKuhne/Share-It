@@ -10,14 +10,22 @@
     document.addEventListener('DOMContentLoaded', ()=>{
 	let API = "https://s0gibsi9ni.execute-api.us-east-2.amazonaws.com/Beta"
 
-        var items = new Vue({
-            el: '#items',
-            data: {
-		items: {},
-		user: "unknown"
-            },
-  	    mounted() {
-    		this.user = localStorage.getItem("lv-user")
+    var items = new Vue({
+        el: '#items',
+        data: {
+            items: {},
+            user: "unknown",
+            remember: true
+        },
+        mounted() {
+            // decide weather to save logins
+            var useLogin = localStorage.getItem("lv-remember")
+            if (useLogin != null) {
+    		    this.remember = useLogin !== "false" ? true : false
+            }
+
+            // enforce logging in
+            this.user = localStorage.getItem("lv-user")
             if (!this.user) {
     		  window.location.href = "./index.html"
             }
@@ -30,7 +38,7 @@
 	    },
         methods: {
         logout: () => {
-    		this.user = localStorage.removeItem("lv-user")
+    		localStorage.removeItem("lv-user")
     		window.location.href = "./index.html"
         },
         purchase: (item) => {
@@ -45,6 +53,7 @@
             .then(res => res.json())
             .then(data => {
                 var owner = data.body.owner
+
                 // check urself
                 if (user === owner) {
                     // b4 you wreck urself
@@ -52,6 +61,14 @@
                 } else {
                     alert(user+" paid "+data.body.owner+", you owe $"+data.body.owes+".")
                 }
+
+                // reroute home
+                if (!items.remember) {
+             		localStorage.removeItem("lv-user")
+                }
+    		    
+                // reload (to refresh stock count)
+                window.location.reload()
             })
         }
         }
@@ -64,13 +81,13 @@
 <body>
     <div id="items">
         <h1 v-on:click="logout()">{{user}}</h1>
-	<choices>
-	    <choice v-for="item in items" v-on:click="purchase(item.name)">
-		<div class="title">{{item.name}}</div>
-		<price>${{item.price}}</price>
-		<owner>{{item.owner}}</owner>
+        <choices>
+            <choice v-for="item in items" v-on:click="purchase(item.name)" :class="{ 'out': item.stock <= 0 }">
+                <div class="title">{{item.name}}</div>
+                <price>${{item.price}}</price>
+                <stock>{{item.stock}}</stock>
             </choice>
-	</choices>
+        </choices>
     </div>
 </body>
 </html>
