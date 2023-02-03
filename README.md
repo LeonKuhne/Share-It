@@ -7,10 +7,10 @@ A ledger for sharing food with your roommates.
 - Include your neighbors
 
 ### Architecture
+**Native Frontend:**
+- Uncompiled Javascript
+
 **AWS Backend:**
 - API Gateway
 - AWS Lambda 
 - DynamoDB
-
-**Native Frontend:**
-- Uncompiled Javascript
