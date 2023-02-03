@@ -2,11 +2,11 @@
 A ledger for sharing food with your roommates.
 > [live demo](https://store.leonk.dev)
 
-# Expansions
+## Expansions
 - Include any household objects 
 - Include your neighbors
 
-### Architecture
+## Architecture
 **Native Frontend:**
 - Uncompiled Javascript
 
