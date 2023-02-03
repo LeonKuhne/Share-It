@@ -5,7 +5,7 @@ A ledger for sharing food with your roommates.
 
 
 ### Architecture
-AWS Backend:**
+**AWS Backend:**
 > API Gateway > AWS Lambda > DynamoDB
 
 **Native Frontend:**
